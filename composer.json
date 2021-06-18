@@ -6,9 +6,7 @@
             "email": "wangyipingyouxiang@163.com"
         }
     ],
-    "require": {
-        "php": ">=7.0.*"
-    },
+    "require": {},
     "autoload": {
         "psr-4": {
             "W1p\\LumenEasemob\\": "src/"
