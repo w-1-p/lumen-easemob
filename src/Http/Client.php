@@ -2,7 +2,6 @@
 
 namespace W1p\LumenEasemob\Http;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use W1p\LumenEasemob\Services\BaseService;
 use GuzzleHttp\Client as GuzzleClient;
@@ -44,21 +43,12 @@ class Client
             $options['form_params'] = $data;
         }
 
-        if (config('app.debug')) {
-            Log::info(str_repeat('-', 120));
-            Log::debug('环信请求信息:', $options);
-        }
-
         $response = $client->request($method, $url, $options);
         if ($response->getStatusCode() == 401) {
             Cache::pull(BaseService::CACHE_NAME);
         }
         $content = $response->getBody()->getContents();
-        if (config('app.debug')) {
-            Log::debug($url);
-            Log::debug($content);
-            Log::info(str_repeat('-', 120));
-        }
+
         return $response->getStatusCode() == 200 ? \GuzzleHttp\json_decode($content, 1) : $response;
     }
 
