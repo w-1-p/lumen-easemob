@@ -3,7 +3,13 @@
 namespace W1p\LumenEasemob;
 
 use Illuminate\Support\ServiceProvider;
-use W1p\LumenEasemob\App\Easemob;
+use GuzzleHttp\Client;
+use W1p\LumenEasemob\Services\User;
+use W1p\LumenEasemob\Services\Friend;
+use W1p\LumenEasemob\Services\ChatRoom;
+use W1p\LumenEasemob\Services\Group;
+use W1p\LumenEasemob\Services\Conference;
+use W1p\LumenEasemob\Services\Message;
 
 class LumenEasemobServiceProvider extends ServiceProvider
 {
@@ -35,14 +41,29 @@ class LumenEasemobServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // 将给定配置文件合现配置文件接合
-        $this->mergeConfigFrom(
-            __DIR__.'/config/easemob.php', 'easemob'
-        );
+        $apps = [
+            'user' => User::class,
+            'friend' => Friend::class,
+            'chat-room' => ChatRoom::class,
+            'group' => Group::class,
+            'conference' => Conference::class,
+            'message' => Message::class,
+        ];
 
-        // 容器绑定
-        $this->app->bind('Easemob', function () {
-            return new Easemob();
+        foreach ($apps as $name => $class) {
+            $this->app->singleton("easemob.{$name}", function () use ($class) {
+                return new $class(config('easemob'));
+            });
+        }
+
+        $this->app->singleton('easemob.http', function () {
+            $baseHost = config('easemob.domain_name');
+            return new Client([
+                'base_uri' => $baseHost,
+                'headers' => [
+                    'accept' => 'application/json',
+                ],
+            ]);
         });
     }
 

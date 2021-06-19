@@ -15,6 +15,60 @@ class Easemob extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'Easemob';
+        return 'easemob.user';
+    }
+
+    /**
+     * @return User
+     * @author Jasmine2
+     */
+    public static function user()
+    {
+        return app('easemob.user');
+    }
+
+    /**
+     * @return Friend
+     * @author Jasmine2
+     */
+    public static function friend()
+    {
+        return app('easemob.friend');
+    }
+
+    /**
+     * @return Group
+     * @author Jasmine2
+     */
+    public static function group()
+    {
+        return app('easemob.group');
+    }
+
+    /**
+     * @return ChatRoom
+     * @author Jasmine2
+     */
+    public static function chatRoom()
+    {
+        return app('easemob.chat-room');
+    }
+
+    /**
+     * @return Conference
+     * @author Jasmine2
+     */
+    public static function conference()
+    {
+        return app('easemob.conference');
+    }
+
+    /**
+     * @return Message
+     * @author Jasmine2
+     */
+    public static function message()
+    {
+        return app('easemob.message');
     }
 }
