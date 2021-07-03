@@ -5,7 +5,6 @@ namespace W1p\LumenEasemob\Services;
 use W1p\LumenEasemob\Http\Client as Http;
 
 use Cache;
-use Log;
 
 class User extends BaseService
 {
@@ -15,18 +14,16 @@ class User extends BaseService
         if (Cache::has(self::CACHE_NAME)) {
             return Cache::get(self::CACHE_NAME);
         }
+
         $data = \GuzzleHttp\json_decode(app('easemob.http')->post($url, [
             'json' => [
                 'grant_type' => 'client_credentials',
                 'client_id' => $this->client_id,
                 'client_secret' => $this->client_secret,
             ],
-        ])->getBody()->getContents(), 1);
-        Log::debug('获取TOKEN:', $data);
+        ])->getBody()->getContents(), true);
+
         $expires_in = (int)$data['expires_in'];
-        if (version_compare(app()->version(), '5.7', '<=')) {
-            $expires_in = (int)($data['expires_in'] / 60);
-        }
         Cache::put(self::CACHE_NAME, $data['access_token'], $expires_in);
         return $data;
     }
@@ -59,14 +56,14 @@ class User extends BaseService
      *
      * @return mixed
      */
-    public function authorizationRegister($name, $password = '123456')
+    public function authorizationRegister($name, $password = 'v7Alto')
     {
         $url = $this->url.'users';
         $option = [
             'username' => $name,
             'password' => $password,
         ];
-        return Http::auth('POST', $url, $option);
+        return Http::json($url, $option);
     }
 
     /**

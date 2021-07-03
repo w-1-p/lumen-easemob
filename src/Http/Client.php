@@ -25,7 +25,6 @@ class Client
         $header['Authorization'] = 'Bearer '.$token;
         $header['Content-Type'] = 'application/x-www-form-urlencoded';
         $header['Accept'] = 'application/json';
-
         /**
          * @var Client $client
          */
@@ -39,14 +38,17 @@ class Client
             $url .= (stripos($url, '?') === false ? '?' : '&');
             $url .= (is_array($data) ? http_build_query($data) : $data);
         }
+
         if ($method != 'GET' && !empty($data)) {
             $options['form_params'] = $data;
         }
 
         $response = $client->request($method, $url, $options);
+
         if ($response->getStatusCode() == 401) {
             Cache::pull(BaseService::CACHE_NAME);
         }
+
         $content = $response->getBody()->getContents();
 
         return $response->getStatusCode() == 200 ? \GuzzleHttp\json_decode($content, 1) : $response;
@@ -54,6 +56,8 @@ class Client
 
     public static function json($url, $data = [], $second = 30, $header = [])
     {
+        $token = Easemob::user()->getAccessToken();
+        $header['Authorization'] = 'Bearer '.$token;
         /**
          * @var GuzzleClient $client
          */
@@ -63,6 +67,7 @@ class Client
             'timeout' => $second,
             'json' => $data,
         ]);
+
         return $response->getStatusCode() == 200 ? $response->getBody()->getContents() : false;
     }
 }
