@@ -2,8 +2,6 @@
 
 namespace W1p\LumenEasemob\Services;
 
-use W1p\LumenEasemob\Http\Client as Http;
-
 class Group extends BaseService
 {
     public function allGroups($limit = 10, $cursor = '')

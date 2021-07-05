@@ -2,8 +2,6 @@
 
 namespace W1p\LumenEasemob\Services;
 
-use W1p\LumenEasemob\Http\Client as Http;
-
 class Conference extends BaseService
 {
     /**

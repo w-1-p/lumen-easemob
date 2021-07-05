@@ -2,14 +2,14 @@
 
 namespace W1p\LumenEasemob;
 
+use Illuminate\Support\ServiceProvider;
 use GuzzleHttp\Client;
 use W1p\LumenEasemob\Services\User;
-use W1p\LumenEasemob\Services\Group;
 use W1p\LumenEasemob\Services\Friend;
-use W1p\LumenEasemob\Services\Message;
 use W1p\LumenEasemob\Services\ChatRoom;
-use Illuminate\Support\ServiceProvider;
+use W1p\LumenEasemob\Services\Group;
 use W1p\LumenEasemob\Services\Conference;
+use W1p\LumenEasemob\Services\Message;
 
 class LumenEasemobServiceProvider extends ServiceProvider
 {

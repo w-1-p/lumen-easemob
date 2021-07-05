@@ -2,8 +2,6 @@
 
 namespace W1p\LumenEasemob\Services;
 
-use W1p\LumenEasemob\Http\Client as Http;
-
 class Friend extends BaseService
 {
     /**
@@ -37,7 +35,7 @@ class Friend extends BaseService
     }
 
     /**
-     * 查看用户所有好友
+     * 查看用户所以好友
      *
      * @param $user_name
      *
