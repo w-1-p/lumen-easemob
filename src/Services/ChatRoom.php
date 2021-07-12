@@ -2,6 +2,8 @@
 
 namespace W1p\LumenEasemob\Services;
 
+use W1p\LumenEasemob\Http\Client as Http;
+
 class ChatRoom extends BaseService
 {
     public function rooms($limit = 10, $cursor = '')
@@ -72,13 +74,12 @@ class ChatRoom extends BaseService
     /**
      * 修改聊天室信息
      *
-     * @param string $group_id
-     * @param string $group_name
-     * @param string $group_description
+     * @param $room_id
+     * @param string $room_name
+     * @param string $room_description
      * @param int $max_user
      *
-     * @return mixed
-     * @throws EasemobError
+     * @return array|bool|float|int|object|string|null
      */
     public function roomEdit($room_id, $room_name = "", $room_description = "", $max_user = 0)
     {

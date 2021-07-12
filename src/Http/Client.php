@@ -23,8 +23,8 @@ class Client
         $method = strtoupper($method);
         $token = Easemob::user()->getAccessToken();
         $header['Authorization'] = 'Bearer '.$token;
-        $header['Content-Type'] = 'application/x-www-form-urlencoded';
         $header['Accept'] = 'application/json';
+        $header['Content-Type'] = 'application/json';
         /**
          * @var Client $client
          */
@@ -40,7 +40,7 @@ class Client
         }
 
         if ($method != 'GET' && !empty($data)) {
-            $options['form_params'] = $data;
+            $options['json'] = $data;
         }
 
         $response = $client->request($method, $url, $options);
