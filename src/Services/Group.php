@@ -2,6 +2,10 @@
 
 namespace W1p\LumenEasemob\Services;
 
+use Illuminate\Support\Arr;
+use W1p\LumenEasemob\Exceptions\EasemobError;
+use W1p\LumenEasemob\Http\Client as Http;
+
 class Group extends BaseService
 {
     public function allGroups($limit = 10, $cursor = '')
